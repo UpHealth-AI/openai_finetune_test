@@ -18,10 +18,10 @@ function App() {
 
     try {
       const response = await axios.post(
-        '/api/chat',
+        'https://api.openai.com/v1/chat/completions',
         {
+          model: process.env.REACT_APP_MODEL,
           messages: updatedMessages,
-          model: process.env.REACT_APP_MODEL, // or hardcode your model ID here
         },
         {
           headers: {
