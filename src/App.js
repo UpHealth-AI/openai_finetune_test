@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
+import joyLogo from './joy.png'; // Add your image to `src/` folder
 
 function App() {
   const [messages, setMessages] = useState([]);
@@ -37,19 +38,24 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Chat with Fine-Tuned GPT</h1>
+      <div className="header">
+        <img src={joyLogo} alt="Joy" className="logo" />
+        <h1>Joy</h1>
+      </div>
+
       <div className="chat-box">
         {messages.map((msg, i) => (
-          <div key={i} className={`message ${msg.role}`}>
+          <div key={i} className={`bubble ${msg.role}`}>
             {msg.content}
           </div>
         ))}
         {loading && (
-          <div className="message assistant">
-            <em>ChatGPT is typing...</em>
+          <div className="bubble assistant">
+            <em>Joy is thinking...</em>
           </div>
         )}
       </div>
+
       <div className="input-area">
         <input
           value={input}
