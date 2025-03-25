@@ -41,20 +41,20 @@ function App() {
         <img src="/joy.png" alt="joy" className="joy-image" />
         <h1>Joy</h1>
       </div>
-
+  
       <div className="chat-box">
         {messages.map((msg, i) => (
-          <div key={i} className={`bubble ${msg.role}`}>
+          <div key={i} className={`message ${msg.role}`}>
             {msg.content}
           </div>
         ))}
         {loading && (
-          <div className="bubble assistant">
-            <em>Joy is thinking...</em>
+          <div className="message assistant">
+            <em>ChatGPT is typing...</em>
           </div>
         )}
       </div>
-
+  
       <div className="input-area">
         <input
           value={input}
