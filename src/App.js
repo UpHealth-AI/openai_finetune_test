@@ -20,7 +20,6 @@ function App() {
     try {
       const response = await axios.post('/api/chat', {
         messages: updatedMessages,
-        model: process.env.REACT_APP_MODEL,
       });
 
       const botReply = response.data.choices[0].message;
@@ -58,6 +57,7 @@ function App() {
         {loading && (
           <div className="bubble assistant">
             <em>Joy is thinking...</em>
+            <span className="spinner" />
           </div>
         )}
       </div>
