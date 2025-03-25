@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
-import joyLogo from './joy.png'; // Add your image to `src/` folder
 
 function App() {
   const [messages, setMessages] = useState([]);
@@ -39,7 +38,7 @@ function App() {
   return (
     <div className="App">
       <div className="header">
-        <img src={joyLogo} alt="Joy" className="logo" />
+        <img src="/joy.png" alt="joy" className="joy-image" />
         <h1>Joy</h1>
       </div>
 
