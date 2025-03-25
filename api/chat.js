@@ -8,6 +8,7 @@ export default async function handler(req, res) {
     const { messages, model } = req.body;
   
     if (!process.env.OPENAI_API_KEY) {
+      console.error('❌ Missing OpenAI API key in environment');
       return res.status(500).json({ error: 'Missing OpenAI API key' });
     }
   
@@ -24,10 +25,16 @@ export default async function handler(req, res) {
         }),
       });
   
+      if (!response.ok) {
+        const err = await response.json();
+        console.error('🛑 OpenAI API error:', err);
+        return res.status(response.status).json({ error: err });
+      }
+  
       const data = await response.json();
       res.status(200).json(data);
     } catch (err) {
-      console.error('OpenAI error:', err);
+      console.error('🔥 Server error calling OpenAI:', err);
       res.status(500).json({ error: 'Failed to fetch OpenAI response' });
     }
   }
