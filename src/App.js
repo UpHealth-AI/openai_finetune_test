@@ -55,11 +55,12 @@ function App() {
           </div>
         ))}
         {loading && (
-          <div className="bubble assistant">
-            <em>Joy is thinking...</em>
-            <span className="spinner" />
+          <div className="bubble assistant typing-indicator">
+            <span className="dot" />
+            <span className="dot" />
+            <span className="dot" />
           </div>
-        )}
+)}
       </div>
 
       <div className="input-area">
