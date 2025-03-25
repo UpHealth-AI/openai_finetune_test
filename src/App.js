@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './App.css';
 
@@ -6,6 +6,7 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const chatBoxRef = useRef(null);
 
   const sendMessage = async () => {
     if (!input.trim()) return;
@@ -35,26 +36,32 @@ function App() {
     }
   };
 
+  useEffect(() => {
+    if (chatBoxRef.current) {
+      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+    }
+  }, [messages]);
+
   return (
     <div className="App">
       <div className="header">
         <img src="/joy.png" alt="joy" className="joy-image" />
         <h1>Joy</h1>
       </div>
-  
-      <div className="chat-box">
+
+      <div className="chat-box" ref={chatBoxRef}>
         {messages.map((msg, i) => (
-          <div key={i} className={`message ${msg.role}`}>
+          <div key={i} className={`bubble ${msg.role}`}>
             {msg.content}
           </div>
         ))}
         {loading && (
-          <div className="message assistant">
-            <em>ChatGPT is typing...</em>
+          <div className="bubble assistant">
+            <em>Joy is thinking...</em>
           </div>
         )}
       </div>
-  
+
       <div className="input-area">
         <input
           value={input}
