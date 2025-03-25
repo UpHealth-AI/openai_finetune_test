@@ -17,19 +17,10 @@ function App() {
     setLoading(true);
 
     try {
-      const response = await axios.post(
-        'https://api.openai.com/v1/chat/completions',
-        {
-          model: process.env.REACT_APP_MODEL,
-          messages: updatedMessages,
-        },
-        {
-          headers: {
-            'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+      const response = await axios.post('/api/chat', {
+        messages: updatedMessages,
+        model: process.env.REACT_APP_MODEL,
+      });
 
       const botReply = response.data.choices[0].message;
       setMessages([...updatedMessages, botReply]);
@@ -47,21 +38,18 @@ function App() {
   return (
     <div className="App">
       <h1>Chat with Fine-Tuned GPT</h1>
-
       <div className="chat-box">
         {messages.map((msg, i) => (
           <div key={i} className={`message ${msg.role}`}>
             {msg.content}
           </div>
         ))}
-
         {loading && (
           <div className="message assistant">
             <em>ChatGPT is typing...</em>
           </div>
         )}
       </div>
-
       <div className="input-area">
         <input
           value={input}
