@@ -5,7 +5,9 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { messages, model } = req.body;
+  const { messages } = req.body;
+  const model = 'ft:gpt-4o-mini-2024-07-18:uphealth-ai:joy-empathatic-model-1:BEt6rGwy';
+
 
   if (!process.env.OPENAI_API_KEY) {
     console.error('❌ Missing OpenAI API key in environment');
@@ -25,7 +27,7 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: model || 'gpt-3.5-turbo',
+        model,
         messages: [systemMessage, ...messages],
       }),
     });
