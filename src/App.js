@@ -3,7 +3,10 @@ import axios from 'axios';
 import './App.css';
 
 function App() {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([
+    { role: 'user', content: 'Please respond using emojis in your replies 😊👍' }, // priming message (hidden)
+    { role: 'assistant', content: 'Hello, my name is Joy. How can I help you today? 😊' }
+  ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const chatBoxRef = useRef(null);
@@ -62,11 +65,14 @@ function App() {
       </div>
 
       <div className="chat-box" ref={chatBoxRef}>
-        {messages.map((msg, i) => (
-          <div key={i} className={`bubble ${msg.role}`}>
-            {msg.content}
-          </div>
-        ))}
+        {messages.map((msg, i) => {
+          if (msg.role === 'user' && msg.content.includes('Please respond using emojis')) return null;
+          return (
+            <div key={i} className={`bubble ${msg.role}`}>
+              {msg.content}
+            </div>
+          );
+        })}
         {loading && (
           <div className="bubble assistant typing-indicator">
             <span className="dot" />
