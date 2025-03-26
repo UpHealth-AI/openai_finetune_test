@@ -3,10 +3,12 @@ import axios from 'axios';
 import './App.css';
 
 function App() {
+  
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const chatBoxRef = useRef(null);
+  const inputRef = useRef(null);
 
   const sendMessage = async () => {
     if (!input.trim()) return;
@@ -32,6 +34,7 @@ function App() {
       ]);
     } finally {
       setLoading(false);
+      inputRef.current?.focus();
     }
   };
 
@@ -65,6 +68,7 @@ function App() {
 
       <div className="input-area">
         <input
+          ref={inputRef}
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && !loading && sendMessage()}
