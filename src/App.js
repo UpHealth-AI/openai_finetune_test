@@ -3,7 +3,6 @@ import axios from 'axios';
 import './App.css';
 
 function App() {
-  
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -40,12 +39,17 @@ function App() {
     }
   };
 
+  // Auto-scroll to bottom on new message or loading state
   useEffect(() => {
     if (chatBoxRef.current) {
-      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+      chatBoxRef.current.scrollTo({
+        top: chatBoxRef.current.scrollHeight,
+        behavior: 'smooth',
+      });
     }
-  }, [messages]);
+  }, [messages, loading]);
 
+  // Focus input on first render
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
@@ -69,7 +73,7 @@ function App() {
             <span className="dot" />
             <span className="dot" />
           </div>
-)}
+        )}
       </div>
 
       <div className="input-area">
