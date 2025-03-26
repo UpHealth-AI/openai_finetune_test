@@ -4,7 +4,7 @@ import './App.css';
 
 function App() {
   const [messages, setMessages] = useState([
-    { role: 'user', content: 'Please respond using emojis in your replies 😊👍' }, // priming message (hidden)
+    { role: 'user', content: 'Please respond using emojis in your replies 😊👍but only if appropriate and mix them in your responses instead of jsut adding it at the end all the time' }, // priming message (hidden)
     { role: 'assistant', content: 'Hello, my name is Joy. How can I help you today? 😊' }
   ]);
   const [input, setInput] = useState('');
@@ -66,7 +66,7 @@ function App() {
 
       <div className="chat-box" ref={chatBoxRef}>
         {messages.map((msg, i) => {
-          if (msg.role === 'user' && msg.content.includes('Please respond using emojis')) return null;
+          if (msg.role === 'user' && msg.content.includes('Please respond using emojis in your replies but only if appropriate and mix them in your responses instead of jsut adding it at the end all the time')) return null;
           return (
             <div key={i} className={`bubble ${msg.role}`}>
               {msg.content}
