@@ -34,7 +34,9 @@ function App() {
       ]);
     } finally {
       setLoading(false);
-      inputRef.current?.focus();
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 10);
     }
   };
 
