@@ -44,6 +44,10 @@ function App() {
     }
   }, [messages]);
 
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
   return (
     <div className="App">
       <div className="header">
