@@ -39,7 +39,7 @@ h1 {
   padding: 12px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 100px;
   background-color: transparent;
   border-radius: 10px;
 }
