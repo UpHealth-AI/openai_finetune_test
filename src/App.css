@@ -173,14 +173,13 @@ button:disabled {
 .overlay {
   position: absolute;
   top: 200px; /* pushes it below the Joy image */
+  left: 50%;
   transform: translateX(-50%);
   z-index: 10;
   background: rgba(248, 243, 233, 0.95); /* semi-transparent bg */
   padding: 24px;
   border-radius: 16px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  width: 50%;
-  margin: 0 auto;
 }
 
 .prompt-grid {
