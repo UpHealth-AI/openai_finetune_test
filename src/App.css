@@ -172,7 +172,7 @@ button:disabled {
 
 .overlay {
   position: absolute;
-  top: 200px; /* adjust as needed */
+  bottom: 90px; /* sits just above the input area */
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
@@ -180,7 +180,11 @@ button:disabled {
   padding: 24px;
   border-radius: 16px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  width: 50%;
+  display: flex;
+  justify-content: center;
 }
+
 
 .prompt-grid {
   display: grid;
