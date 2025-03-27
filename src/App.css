@@ -40,6 +40,8 @@ h1 {
   background-color: #fffef9;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  width: 50%;
+  margin: 0 auto;
 }
 
 .bubble {
@@ -103,8 +105,8 @@ button:disabled {
 }
 
 .joy-image {
-  width: 100px;
-  height: 100px;
+  width: 130px;
+  height: 130px;
   border-radius: 50%;
   margin-bottom: 8px;
 }

@@ -4,7 +4,7 @@ import './App.css';
 
 function App() {
   const [messages, setMessages] = useState([
-    { role: 'assistant', content: 'Hello, my name is Joy. How can I help you today? 😊' }
+    { role: 'assistant', content: 'Hi there! I’m Joy, your assistant trained in mental wellness.  My goal is to be helpful and supportive. Ask me for activities to reduce stress or let’s talk about whatever’s on your mind. 😊' }
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
