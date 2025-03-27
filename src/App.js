@@ -91,7 +91,7 @@ function App() {
           disabled={loading}
         />
         <button onClick={sendMessage} disabled={loading}>
-          {loading ? 'Sending...' : 'Send'}
+          {loading ? '⏳' : '⬆️'}
         </button>
       </div>
     </div>
