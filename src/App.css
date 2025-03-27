@@ -173,7 +173,6 @@ button:disabled {
 .overlay {
   position: absolute;
   top: 200px; /* pushes it below the Joy image */
-  left: 50%;
   transform: translateX(-50%);
   z-index: 10;
   background: rgba(248, 243, 233, 0.95); /* semi-transparent bg */
