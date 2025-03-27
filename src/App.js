@@ -4,17 +4,23 @@ import './App.css';
 
 function App() {
   const [messages, setMessages] = useState([
-    { role: 'assistant', content: 'Hi there! I’m Joy, your assistant trained in mental wellness.  My goal is to be helpful and supportive. Ask me for activities to reduce stress or let’s talk about whatever’s on your mind. 😊' }
+    {
+      role: 'assistant',
+      content:
+        'Hi there! I’m Joy, your assistant trained in mental wellness. My goal is to be helpful and supportive. Ask me for activities to reduce stress or let’s talk about whatever’s on your mind. 😊',
+    },
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showOverlay, setShowOverlay] = useState(true);
   const chatBoxRef = useRef(null);
   const inputRef = useRef(null);
 
-  const sendMessage = async () => {
-    if (!input.trim()) return;
+  const sendMessage = async (manualInput = null) => {
+    const messageToSend = manualInput || input;
+    if (!messageToSend.trim()) return;
 
-    const userMessage = { role: 'user', content: input };
+    const userMessage = { role: 'user', content: messageToSend };
     const updatedMessages = [...messages, userMessage];
     setMessages(updatedMessages);
     setInput('');
@@ -31,7 +37,10 @@ function App() {
       console.error('Error calling OpenAI:', error);
       setMessages([
         ...updatedMessages,
-        { role: 'assistant', content: '⚠️ Error getting response. Please try again.' },
+        {
+          role: 'assistant',
+          content: '⚠️ Error getting response. Please try again.',
+        },
       ]);
     } finally {
       setLoading(false);
@@ -41,7 +50,11 @@ function App() {
     }
   };
 
-  // Auto-scroll to bottom on new message or loading state
+  const handlePromptClick = (prompt) => {
+    setShowOverlay(false);
+    sendMessage(prompt);
+  };
+
   useEffect(() => {
     if (chatBoxRef.current) {
       chatBoxRef.current.scrollTo({
@@ -51,13 +64,33 @@ function App() {
     }
   }, [messages, loading]);
 
-  // Focus input on first render
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
 
   return (
     <div className="App">
+      {showOverlay && (
+        <div className="overlay">
+          <div className="prompt-grid">
+            {[
+              'I want to vent',
+              'Make me smile',
+              'Improve my mood',
+              'Give me a task',
+            ].map((text) => (
+              <div
+                key={text}
+                className="prompt-box"
+                onClick={() => handlePromptClick(text)}
+              >
+                {text}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="header">
         <img src="/joy.png" alt="joy" className="joy-image" />
         <h1>Joy</h1>
@@ -65,7 +98,14 @@ function App() {
 
       <div className="chat-box" ref={chatBoxRef}>
         {messages.map((msg, i) => {
-          if (msg.role === 'user' && msg.content.includes('Please respond using emojis in your replies but only if appropriate and mix them in your responses instead of jsut adding it at the end all the time')) return null;
+          if (
+            msg.role === 'user' &&
+            msg.content.includes(
+              'Please respond using emojis in your replies but only if appropriate and mix them in your responses instead of jsut adding it at the end all the time'
+            )
+          )
+            return null;
+
           return (
             <div key={i} className={`bubble ${msg.role}`}>
               {msg.content}
@@ -90,7 +130,7 @@ function App() {
           placeholder="Type your message..."
           disabled={loading}
         />
-        <button onClick={sendMessage} disabled={loading}>
+        <button onClick={() => sendMessage()} disabled={loading}>
           {loading ? '⏳' : '⬆️'}
         </button>
       </div>

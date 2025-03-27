@@ -10,6 +10,7 @@ body {
   height: 100vh;
   padding: 16px;
   box-sizing: border-box;
+  position: relative;
 }
 
 .header {
@@ -108,8 +109,8 @@ button:disabled {
 }
 
 .joy-image {
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   margin-bottom: 8px;
 }
@@ -167,4 +168,44 @@ button:disabled {
     opacity: 0.2;
     transform: scale(1);
   }
+}
+
+/* 🎉 NEW STYLES FOR THE ONBOARDING OVERLAY */
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  background: #f8f3e9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prompt-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  width: 80%;
+  max-width: 600px;
+}
+
+.prompt-box {
+  background-color: #e6e4d9;
+  padding: 24px;
+  border-radius: 16px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.prompt-box:hover {
+  transform: translateY(-4px);
+  background-color: #dcdacb;
 }
