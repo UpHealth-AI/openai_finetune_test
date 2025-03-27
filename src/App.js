@@ -72,7 +72,7 @@ function App() {
     <div className="App">
       {showOverlay && (
         <div className="overlay">
-          <div className="prompt-grid">
+          <div className="overlay-buttons">
             {[
               'I want to vent',
               'Make me smile',

@@ -206,3 +206,10 @@ button:disabled {
   transform: translateY(-4px);
   background-color: #dcdacb;
 }
+
+.overlay-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  justify-content: center; /* 👈 center buttons in the overlay */
+}
