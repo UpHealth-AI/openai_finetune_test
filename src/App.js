@@ -2,17 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './App.css';
 import Login from './Login';
-import { auth, app } from './firebase';
+import { auth } from './firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 
 function App() {
-  const [messages, setMessages] = useState([
-    {
-      role: 'assistant',
-      content:
-        'Hi there! I’m Joy, your assistant trained in mental wellness. My goal is to be helpful and supportive. Ask me for activities to reduce stress or let’s talk about whatever’s on your mind. 😊',
-    },
-  ]);
+  const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [showOverlay, setShowOverlay] = useState(true);
@@ -27,6 +21,16 @@ function App() {
     return () => unsubscribe();
   }, []);
 
+  useEffect(() => {
+    if (user && messages.length === 0) {
+      const firstMessage = {
+        role: 'assistant',
+        content: `Hi ${user.displayName}, I’m Joy, your assistant trained in mental wellness. My goal is to be helpful and supportive. Ask me for activities to reduce stress or let’s talk about whatever’s on your mind. 😊`,
+      };
+      setMessages([firstMessage]);
+    }
+  }, [user, messages.length]);
+  
   const sendMessage = async (manualInput = null) => {
     const messageToSend = manualInput || input;
     if (!messageToSend.trim()) return;
