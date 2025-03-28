@@ -31,25 +31,24 @@ function App() {
       setMessages([welcomeMessage]);
     }
   }, [user]);
-  
-  
+
   const sendMessage = async (manualInput = null) => {
-    setShowOverlay(false); // Hide the overlay on any message send
-  
+    setShowOverlay(false);
+
     const messageToSend = manualInput || input;
     if (!messageToSend.trim()) return;
-  
+
     const userMessage = { role: 'user', content: messageToSend };
     const updatedMessages = [...messages, userMessage];
     setMessages(updatedMessages);
     setInput('');
     setLoading(true);
-  
+
     try {
       const response = await axios.post('/api/chat', {
         messages: updatedMessages,
       });
-  
+
       const botReply = response.data.choices[0].message;
       setMessages([...updatedMessages, botReply]);
     } catch (error) {
@@ -91,25 +90,6 @@ function App() {
 
   return (
     <div className="App">
-      {showOverlay && (
-        <div className="prompt-row">
-          {[
-            'I want to vent',
-            'Make me smile',
-            'Improve my mood',
-            'Give me a task',
-          ].map((text) => (
-            <button
-              key={text}
-              className="prompt-pill"
-              onClick={() => handlePromptClick(text)}
-            >
-              {text}
-            </button>
-          ))}
-        </div>
-      )}
-
       <div className="header">
         <img src="/joy.png" alt="joy" className="joy-image" />
         <h1>Joy</h1>
@@ -139,6 +119,25 @@ function App() {
           </div>
         )}
       </div>
+
+      {showOverlay && (
+        <div className="prompt-row">
+          {[
+            'I want to vent',
+            'Make me smile',
+            'Improve my mood',
+            'Give me a task',
+          ].map((text) => (
+            <button
+              key={text}
+              className="prompt-pill"
+              onClick={() => handlePromptClick(text)}
+            >
+              {text}
+            </button>
+          ))}
+        </div>
+      )}
 
       <div className="input-area">
         <input
