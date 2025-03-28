@@ -34,20 +34,22 @@ function App() {
   
   
   const sendMessage = async (manualInput = null) => {
+    setShowOverlay(false); // Hide the overlay on any message send
+  
     const messageToSend = manualInput || input;
     if (!messageToSend.trim()) return;
-
+  
     const userMessage = { role: 'user', content: messageToSend };
     const updatedMessages = [...messages, userMessage];
     setMessages(updatedMessages);
     setInput('');
     setLoading(true);
-
+  
     try {
       const response = await axios.post('/api/chat', {
         messages: updatedMessages,
       });
-
+  
       const botReply = response.data.choices[0].message;
       setMessages([...updatedMessages, botReply]);
     } catch (error) {
