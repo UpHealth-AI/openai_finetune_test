@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './App.css';
+import Login from './Login';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { app } from './firebase';
 
 function App() {
   const [messages, setMessages] = useState([
@@ -13,8 +16,17 @@ function App() {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [showOverlay, setShowOverlay] = useState(true);
+  const [user, setUser] = useState(null);
   const chatBoxRef = useRef(null);
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    const auth = getAuth(app);
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const sendMessage = async (manualInput = null) => {
     const messageToSend = manualInput || input;
@@ -67,6 +79,8 @@ function App() {
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
+
+  if (!user) return <Login setUser={setUser} />;
 
   return (
     <div className="App">
