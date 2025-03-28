@@ -26,7 +26,7 @@ function App() {
       const firstName = user.displayName?.split(' ')[0] || 'there';
       const welcomeMessage = {
         role: 'assistant',
-        content: `Hi ${firstName}, I’m Joy, your assistant trained in mental wellness. My goal is to be helpful and supportive. Ask me for activities to reduce stress or let’s talk about whatever’s on your mind. 😊`,
+        content: `Hi ${firstName}, I’m Joy. I’m here to help you make sense of what you’re feeling, reduce stress, and feel more in control of your day. We can reflect, talk things through, or just pause for a moment. What’s on your mind today?`,
       };
       setMessages([welcomeMessage]);
     }
@@ -93,10 +93,10 @@ function App() {
         <div className="overlay">
           <div className="overlay-buttons">
             {[
-              'I want to vent',
-              'Make me smile',
-              'Improve my mood',
-              'Give me a task',
+              'I’m feeling off',
+              'I’m overwhelmed',
+              'I want to feel better',
+              'I’m just exploring',
             ].map((text) => (
               <div
                 key={text}
