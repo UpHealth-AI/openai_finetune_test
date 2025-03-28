@@ -22,14 +22,14 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (user && messages.length === 0) {
-      const firstMessage = {
+    if (user) {
+      const welcomeMessage = {
         role: 'assistant',
         content: `Hi ${user.displayName}, I’m Joy, your assistant trained in mental wellness. My goal is to be helpful and supportive. Ask me for activities to reduce stress or let’s talk about whatever’s on your mind. 😊`,
       };
-      setMessages([firstMessage]);
+      setMessages([welcomeMessage]);
     }
-  }, [user, messages.length]);
+  }, [user]);
   
   const sendMessage = async (manualInput = null) => {
     const messageToSend = manualInput || input;
