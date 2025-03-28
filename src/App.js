@@ -92,23 +92,21 @@ function App() {
   return (
     <div className="App">
       {showOverlay && (
-        <div className="overlay">
-          <div className="overlay-buttons">
-            {[
-              'I’m feeling off',
-              'I’m overwhelmed',
-              'I want to feel better',
-              'I’m just exploring',
-            ].map((text) => (
-              <div
-                key={text}
-                className="prompt-box"
-                onClick={() => handlePromptClick(text)}
-              >
-                {text}
-              </div>
-            ))}
-          </div>
+        <div className="prompt-row">
+          {[
+            'I want to vent',
+            'Make me smile',
+            'Improve my mood',
+            'Give me a task',
+          ].map((text) => (
+            <button
+              key={text}
+              className="prompt-pill"
+              onClick={() => handlePromptClick(text)}
+            >
+              {text}
+            </button>
+          ))}
         </div>
       )}
 
