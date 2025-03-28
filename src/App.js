@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './App.css';
 import Login from './Login';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { app } from './firebase';
+import { auth, app } from './firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 
 function App() {
   const [messages, setMessages] = useState([
@@ -21,7 +21,6 @@ function App() {
   const inputRef = useRef(null);
 
   useEffect(() => {
-    const auth = getAuth(app);
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
     });
