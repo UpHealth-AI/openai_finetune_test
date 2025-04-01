@@ -1,9 +1,12 @@
+// src/App.js
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './App.css';
 import Login from './Login';
 import { auth } from './firebase';
 import { onAuthStateChanged } from 'firebase/auth';
+import { gapi } from 'gapi-script';
+import { CLIENT_ID, API_KEY, SCOPES, DISCOVERY_DOC } from './calendarConfig';
 
 function App() {
   const [messages, setMessages] = useState([]);
@@ -11,6 +14,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [showOverlay, setShowOverlay] = useState(true);
   const [user, setUser] = useState(null);
+  const [events, setEvents] = useState([]);
   const chatBoxRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -32,6 +36,40 @@ function App() {
     }
   }, [user]);
 
+  const fetchCalendarEvents = () => {
+    function initClient() {
+      gapi.client
+        .init({
+          apiKey: API_KEY,
+          clientId: CLIENT_ID,
+          discoveryDocs: [DISCOVERY_DOC],
+          scope: SCOPES,
+        })
+        .then(() => gapi.auth2.getAuthInstance().signIn())
+        .then(() =>
+          gapi.client.calendar.events.list({
+            calendarId: 'primary',
+            timeMin: new Date(Date.now() - 1 * 60 * 60 * 1000).toISOString(), // 1 hour before now
+            timeMax: new Date(Date.now() + 1 * 60 * 60 * 1000).toISOString(), // 1 hour ahead
+            showDeleted: false,
+            singleEvents: true,
+            maxResults: 5,
+            orderBy: 'startTime',
+          })
+        )
+        .then((response) => {
+          setEvents(response.result.items || []);
+        })
+        .catch((err) => console.error('Error loading calendar', err));
+    }
+
+    gapi.load('client:auth2', initClient);
+  };
+
+  useEffect(() => {
+    if (user) fetchCalendarEvents();
+  }, [user]);
+
   const sendMessage = async (manualInput = null) => {
     setShowOverlay(false);
 
@@ -44,9 +82,21 @@ function App() {
     setInput('');
     setLoading(true);
 
+    // Add calendar context message if any events found
+    let contextualMessages = [...updatedMessages];
+    if (events.length > 0) {
+      const nearestEvent = events[0];
+      const when = new Date(nearestEvent.start.dateTime || nearestEvent.start.date).toLocaleString();
+      const contextMsg = {
+        role: 'user',
+        content: `FYI: I just had or will soon have a meeting titled "${nearestEvent.summary}" scheduled at ${when}.`,
+      };
+      contextualMessages = [contextMsg, ...contextualMessages];
+    }
+
     try {
       const response = await axios.post('/api/chat', {
-        messages: updatedMessages,
+        messages: contextualMessages,
       });
 
       const botReply = response.data.choices[0].message;
@@ -62,9 +112,7 @@ function App() {
       ]);
     } finally {
       setLoading(false);
-      setTimeout(() => {
-        inputRef.current?.focus();
-      }, 10);
+      setTimeout(() => inputRef.current?.focus(), 10);
     }
   };
 
@@ -96,21 +144,11 @@ function App() {
       </div>
 
       <div className="chat-box" ref={chatBoxRef}>
-        {messages.map((msg, i) => {
-          if (
-            msg.role === 'user' &&
-            msg.content.includes(
-              'Please respond using emojis in your replies but only if appropriate and mix them in your responses instead of jsut adding it at the end all the time'
-            )
-          )
-            return null;
-
-          return (
-            <div key={i} className={`bubble ${msg.role}`}>
-              {msg.content}
-            </div>
-          );
-        })}
+        {messages.map((msg, i) => (
+          <div key={i} className={`bubble ${msg.role}`}>
+            {msg.content}
+          </div>
+        ))}
         {loading && (
           <div className="bubble assistant typing-indicator">
             <span className="dot" />
