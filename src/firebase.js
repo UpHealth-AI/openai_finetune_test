@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDzYYCwGtjznPNvMfGSmQam8sTF3JLbEa0",
+  apiKey: "AIzaSyBOXSB4McwZh7a3rIFvfz0JEcpDzacArxc",
   authDomain: "joy-chat-app-9a9e0.firebaseapp.com",
   projectId: "joy-chat-app-9a9e0",
   storageBucket: "joy-chat-app-9a9e0.appspot.com", // ✅ fixed here
