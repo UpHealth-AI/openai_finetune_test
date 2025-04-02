@@ -121,20 +121,21 @@ function App() {
       </div>
 
       {showOverlay && (
-        <div className="prompt-row">
+        <div className="prompt-image-grid">
           {[
-            'I want to vent',
-            'Make me smile',
-            'Improve my mood',
-            'Give me a task',
-          ].map((text) => (
-            <button
+            { text: 'Explore my feelings', image: '/explorefeelings.png' },
+            { text: 'I am overwhelmed', image: '/overwhelmed.png' },
+            { text: 'I want to feel better', image: '/feelbetter.png' },
+            { text: 'Make me smile', image: '/makemesmile.png' },
+          ].map(({ text, image }) => (
+            <div
               key={text}
-              className="prompt-pill"
+              className="prompt-image-card"
               onClick={() => handlePromptClick(text)}
             >
-              {text}
-            </button>
+              <img src={image} alt={text} className="prompt-image" />
+              <div className="prompt-label">{text}</div>
+            </div>
           ))}
         </div>
       )}
