@@ -172,7 +172,7 @@ button:disabled {
 
 .prompt-image-grid {
   position: absolute;
-  top: 180px;
+  top: 140px;
   left: 20px;
   width: 160px;
   display: flex;
