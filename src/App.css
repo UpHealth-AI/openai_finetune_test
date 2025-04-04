@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: 'Quicksand', sans-serif;
-  background-color: #f8f3e9; /* light khaki */
+  background-color: #fefbf6; /* light khaki */
 }
 
 .App {
@@ -38,7 +38,7 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  background-color: #f8f3e9; 
+  background-color: #fefbf6; 
   border-radius: 0;           
   box-shadow: none;         
   width: 50%;
@@ -93,7 +93,7 @@ input {
 }
 
 button {
-  background-color: #8e8b75;
+  background-color: #a0a486;
   color: white;
   padding: 6px 14px;
   border: none;
