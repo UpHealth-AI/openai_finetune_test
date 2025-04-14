@@ -5,7 +5,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyBOXSB4McwZh7a3rIFvfz0JEcpDzacArxc",
   authDomain: "joy-chat-app-9a9e0.firebaseapp.com",
   projectId: "joy-chat-app-9a9e0",
-  storageBucket: "joy-chat-app-9a9e0.appspot.com", // ✅ fixed here
+  storageBucket: "joy-chat-app-9a9e0.appspot.com", 
   messagingSenderId: "1037213212817",
   appId: "1:1037213212817:web:114c138e1cf505c091df30",
   measurementId: "G-0ZRNTTBVQK"
